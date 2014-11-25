@@ -1,0 +1,105 @@
+Binary "disassembler" interpreting as raster scan-lines and pixel maps.
+
+It was created primarily because of a lack of featured alternatives for viewing
+bitmap resources in memory, using Nintendo 64 DRAM dumps for most tests.
+
+Objectively, this tool is not aimed to be N64-specific and should support the
+various color encodings of other systems' graphics hardware (except for
+primitive color-indexed palette stuff, like look-up tables for random colors,
+in which case a dedicated GIF or PNG image palette editor should be used).
+
+Advantages over Jovis' N64 disassembler utility:
+    * takes no time at all to upload pixels, rather than minutes
+    * worst-case scenario compatible GDI fallback to Microsoft's software
+      OpenGL implementation (still much faster though)
+    * much more precise scrolling through the image, on exact intervals
+    * other more conventional uses over Lemmy's disassembler, outlined next
+
+Advantages over LemAsm:
+    * many non-N64-specific color modes and bit depths supported
+    * vertical flipping and un-flipping of the image ('f' and 'F')
+    * OpenGL color channel component toggling ('rgba', 'RGBA' keys for on/off)
+    * byte-by-byte (not pixel-by-pixel) scrolling (left/right arrow keys)
+    * scrolling on single scan-line intervals (up/down arrow keys)
+    * scrolling by the size of all pixels fitting current screen size (PgUp/Dn)
+    * incrementing and decrementing scan-line pitch, in pixels ('+' and '-')
+    * cross-platform, hardware-accelerated OpenGL blits (no acceleration req.)
+    * real-time tracing of bitmap/viewport size and memory offset (F5 key)
+    * available source code
+
+Disadvantages (not yet supported):
+    * RGB un-packing without the opacity channel (Greeks call this alpha?) in
+      the scan-line pitch (should add 'p' and 'P' shortcut keys so that 3-, 6-,
+      15-, 24-, 48-, and 96-bit-per-pixel color formats can be supported)
+    * no graphical scrollbar or current percentage number showing how far down
+      into the file's binary content the program is currently offset to
+    * actually does not really support Nintendo 64 strict R5G5B5 format due to
+      it being a slight variation of OpenGL's internal 16-bpp support (though
+      N64 16-bit texture memory still shows up pretty clearly with barely some
+      extent of visual difference), might merge the 'p' flag to support this
+    * The background, canvas color is always black for now, until main() args
+      are extended to support extra nit-pick parameters to support properties
+      like this, starting at a fixed byte offset into the file, etc.
+    * Currently there is no function to dump the current OpenGL viewport of the
+      pixels to a bitmap file on-disk, due to the indecision as to what file
+      format to save the image to.  (While Alt+PrtScrn on the window works, it
+      misses transparency data supported by image formats like PNG, maybe BMP.)
+    * no way to zoom in on the pixels without using a smaller system resolution
+    * lacks some less conventional pixel formats supported by Jovis' 64DISASM
+    * forgot whether anything else was planned (your idea here?)
+
+How to use the program:
+    * Drag-and-drop. :)
+    * should add other stuff for batch files and command line in the future
+    * arrow keys and PageUp/PageDown to scroll through the pixels
+    * to-do ?? implement functions for mouse move/click/drag?
+    * Lowercase letters enable options; uppercase letters turn them back off.
+      The octal digit '01234567' and some other keys can do some special stuff
+      which may be documented later.
+
+Supported modes of pixel bitmap interpretation:
+    * 1-bit-per-pixel monochrome bitmaps (Press the '0' key.)
+    * 2-bit chromatic intensity (Press '1'.)
+    * 4-bit I1R1G1B1 and IBGR, compatible with Windows VGA (Press '2'.)
+    * 8-bit intensity mask, not compatible with Microsoft's arbitrary B2G3R3
+      (Press '3', and try 'RGBA' keys for toggling color channels on and off.)
+    * 16-bit R5G5B5A1 or B5G5R5A1 (Press '4'.)
+    * 32-bit RGBA or BGRA pixels (Most people might want this.  Press '5'.)
+    * 64-bit RGBA or BGRA pixels (Press '6'.)
+    * 128-bit RGBA or BGRA pixels (Press '7'.)
+Pressing '6' or '7' will resort to exotic, futuristic color bit depths which
+we currently do not have PC monitors for, although it is a core feature to
+OpenGL's RGBA rendering capacity.  It is not portable to OpenGL ES code, though
+most of the remaining source code is portable to OpenGL ES 1.x.  Windows GDI+
+does claim to support the 64-bit RGBA encoding for Windows bitmaps.  Thanks to
+OpenGL 1.2 extensions, you can press 'e' and 'E' to toggle RGB/BGR endianness.
+Currently the software lacks a 'p' flag to switch packing/pitch to exclude alpha
+so that other bit depths like 3, 24, 48, or 96 bits per pixel can be supported.
+
+There are no special system requirements of note (could work on the oldest
+operating systems, even something without a native OpenGL implementation thanks
+to the Mesa3D project), and the source code should build the program fine for
+most systems in general, with a few fundamental exceptions:
+    * The OpenGL Utility Toolkit (GLUT) library is a current dependency.  It is
+      traditionally Mark Kilgard's copyrighted library for handling framework
+      stuff in portable high-level functions across different operating systems
+      (back when Kilgard was still working for Silicon Graphics and the OpenGL
+      invention).  Fortunately there is also a "freeGLUT" which is backwards-
+      compatible with the features of the "non-free" GLUT library and could
+      also be used to compile and link this software.  The venerable GLUT is on
+      rare occassion still being updated and maintained in the NVIDIA SDKs.
+    * The cross-platform `fseek(&file, SEEK_END, 0)' method of getting a file's
+      size is regulated only to meaningful computations by POSIX standards.
+      It's still better than constant file streaming and hard-disk access,
+      as RAM-caching helps maintain the instantaneous responses from the
+      program while stepping through the pixels.  Maybe in the future I can
+      rewrite it as a loop of fgetc's until an EOF is found, with the more
+      instant get-file-size-and-fread method moved over to a main() args flag.
+    * As of 2008, there are a couple "deprecated" commands used which were
+      removed from the OpenGL 3.1+ specifications and, possibly for some
+      Macintosh/Intel GPU user, the OpenGL drivers for some video hardware.
+      What used to be OpenGL has become taken over by the Khronos Group, which
+      created their own OpenGL [ES] specs and imposed their "low-level API",
+      performance-only views against the original OpenGL specs as well.  Since
+      there is no benefit to forcing the application of shaders to portable GL
+      programs, a handful of "deprecated" commands are seldom used by this tool.
