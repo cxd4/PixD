@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Pixel Map Disassembler                                             *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.11.25                                                         *
+* Release:  2014.11.27                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -78,6 +78,8 @@ int main(int argc, char* argv[])
 
     while (fclose(file_in) != 0)
         print_literal("Problem destroying file stream.\n");
+
+    byte_offset = (argc > 2) ? (GLint)strtol(argv[2], NULL, 16) : 0;
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_ALPHA);
