@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Pixel Map Disassembler                                             *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.11.27                                                         *
+* Release:  2014.12.19                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -79,8 +79,6 @@ int main(int argc, char* argv[])
     while (fclose(file_in) != 0)
         print_literal("Problem destroying file stream.\n");
 
-    byte_offset = (argc > 2) ? (GLint)strtol(argv[2], NULL, 16) : 0;
-
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_ALPHA);
     glutInitWindowSize(64, 64);
@@ -90,6 +88,15 @@ int main(int argc, char* argv[])
     glDisable(GL_BLEND);
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texture_limit);
     channels[CVG] = channels[BLU] = channels[GRN] = channels[RED] = GL_TRUE;
+
+    byte_offset = (argc >= 3) ? (GLint)strtol(argv[2], NULL, 16) : 0;
+    bits_per_pixel = (argc >= 4) ? 1 << (argv[3][0] - '0') : 8;
+    viewport[2] = (argc >= 5) ? atoi(argv[4]) : 256;
+    viewport[3] = (argc >= 6) ? atoi(argv[5]) : 256;
+
+    if (bits_per_pixel > 128)
+        bits_per_pixel = 128; /* 256-or-more-bit pixels not supported */
+    reshape(viewport[2], viewport[3]);
 
 #if defined(GL_VERSION_1_0) & !defined(GL_VERSION_1_1)
     glDisable(GL_TEXTURE_2D);

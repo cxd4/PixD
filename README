@@ -8,6 +8,27 @@ various color encodings of other systems' graphics hardware (except for
 primitive color-indexed palette stuff, like look-up tables for random colors,
 in which case a dedicated GIF or PNG image palette editor should be used).
 
+Command syntax:
+    PixD [filepath] [entry point] [depth] [width] [height]
+
+All arguments are optional and will assume default values if not specified.
+Simply executing `PixD' with no parameters is NOT erroneous.  Default values:
+    [filepath] -- The default input file is "data.bin".
+    [entry point] -- The default offset is 0, so it disassembles from the start.
+                     It must be a hexadecimal, with or without the `0x' prefix.
+    [depth] -- You take 2 to the power of this number, from 0 to 7.  The default
+               is 3, so the default color depth is 2*2*2 = 8 bits per pixel.
+    [width], [height] -- both initialize to 64x64 pixels for OpenGL 1.0 texture
+                         limit reasons, but the end result should be 256x256.
+
+Example command:
+    PixD "DRAM.BIN" 100000 4 320 240
+... opens a file named DRAM.BIN into the pixel diassembler, seeking 0x00100000
+bytes deep into the file as a pixel map, initialized to a 16-bit 320x240
+viewport which should be compatible with the N64's R5G5B5 frame buffer format.
+If N64 support is not desired (e.g., the intention is B5G5R5 or A1R5G5B5),
+a combination of endianness and packing keyboard shortcuts can be used later.
+
 Advantages over Jovis' N64 disassembler utility:
     * takes no time at all to upload pixels, rather than minutes
     * worst-case scenario compatible GDI fallback to Microsoft's software
@@ -31,12 +52,6 @@ Disadvantages (not yet supported):
     * RGB un-packing without the opacity channel (Greeks call this alpha?) in
       the scan-line pitch (should add 'p' and 'P' shortcut keys so that 3-, 6-,
       15-, 24-, 48-, and 96-bit-per-pixel color formats can be supported)
-    * no graphical scrollbar or current percentage number showing how far down
-      into the file's binary content the program is currently offset to
-    * actually does not really support Nintendo 64 strict R5G5B5 format due to
-      it being a slight variation of OpenGL's internal 16-bpp support (though
-      N64 16-bit texture memory still shows up pretty clearly with barely some
-      extent of visual difference), might merge the 'p' flag to support this
     * The background, canvas color is always black for now, until main() args
       are extended to support extra nit-pick parameters to support properties
       like this, starting at a fixed byte offset into the file, etc.
