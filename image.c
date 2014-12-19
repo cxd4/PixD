@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface for Pixel Transfers                     *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.11.25                                                         *
+* Release:  2014.12.19                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -135,6 +135,7 @@ void display(void)
         type = BGR_ordering
             ? GL_UNSIGNED_SHORT_1_5_5_5_REV : GL_UNSIGNED_SHORT_5_5_5_1;
         data = (const GLvoid *)(file_data + byte_offset);
+        glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_TRUE);
         break;
     case 32:
         format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
@@ -162,6 +163,7 @@ void display(void)
     glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, texture_rectangle);
 #endif
     glFlush();
+    glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_FALSE);
 
     status = glGetError();
     if (status != GL_NO_ERROR)
