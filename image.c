@@ -205,6 +205,7 @@ void reshape(int w, int h)
         width = viewport[2]; /* restoring old width */
         height = viewport[3]; /* restoring old height */
     }
+    glutReshapeWindow(width, height); /* confirmed new width and height */
 
     texture_size = (width < height) ? height : width;
     if (texture_size >= texture_limit)
