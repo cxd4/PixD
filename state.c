@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface Run-Time Configuration                  *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.11.25                                                         *
+* Release:  2014.12.19                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -116,6 +116,7 @@ void key_press_ascii(unsigned char key, int x, int y)
         reshape(viewport[2] += 1, viewport[3]);
         break;
     case 'A':
+        glDisable(GL_BLEND);
         glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[CVG] = GL_FALSE;
         break;
@@ -140,6 +141,7 @@ void key_press_ascii(unsigned char key, int x, int y)
         texture_vector[3][1] = texture_vector[2][1] = +1.f;
         break;
     case 'a':
+        glEnable(GL_BLEND);
         glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[CVG] = GL_TRUE;
         break;

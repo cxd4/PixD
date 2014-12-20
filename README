@@ -9,7 +9,7 @@ primitive color-indexed palette stuff, like look-up tables for random colors,
 in which case a dedicated GIF or PNG image palette editor should be used).
 
 Command syntax:
-    PixD [filepath] [entry point] [depth] [width] [height]
+    PixD [filepath] [entry point] [depth] [width] [height] [blend]
 
 All arguments are optional and will assume default values if not specified.
 Simply executing `PixD' with no parameters is NOT erroneous.  Default values:
@@ -20,14 +20,21 @@ Simply executing `PixD' with no parameters is NOT erroneous.  Default values:
                is 3, so the default color depth is 2*2*2 = 8 bits per pixel.
     [width], [height] -- both initialize to 64x64 pixels for OpenGL 1.0 texture
                          limit reasons, but the end result should be 256x256.
+    [blend] -- Blend any partially (or completely) transparent pixels in the
+               foreground against this background color (another hexadecimal).
+               The default is 0x000000FF (100% black) and disables blending in
+               case the user needs to ignore the alpha channel to see the proper
+               image disassembly.  (Try also pressing capital 'A' at run-time.)
 
 Example command:
-    PixD "DRAM.BIN" 100000 4 320 240
+    PixD "DRAM.BIN" 100000 4 320 240 FF00FF80
 ... opens a file named DRAM.BIN into the pixel diassembler, seeking 0x00100000
 bytes deep into the file as a pixel map, initialized to a 16-bit 320x240
 viewport which should be compatible with the N64's R5G5B5 frame buffer format.
 If N64 support is not desired (e.g., the intention is B5G5R5 or A1R5G5B5),
 a combination of endianness and packing keyboard shortcuts can be used later.
+Finally, the background color is semi-transparent magenta (0xFF00FF80), but how
+the transparency is handled will depend on your OS, windowing system, etc.
 
 Advantages over Jovis' N64 disassembler utility:
     * takes no time at all to upload pixels, rather than minutes
@@ -40,6 +47,7 @@ Advantages over LemAsm:
     * many non-N64-specific color modes and bit depths supported
     * vertical flipping and un-flipping of the image ('f' and 'F')
     * OpenGL color channel component toggling ('rgba', 'RGBA' keys for on/off)
+    * support for partially transparent pixels blended against any 32-bit canvas
     * byte-by-byte (not pixel-by-pixel) scrolling (left/right arrow keys)
     * scrolling on single scan-line intervals (up/down arrow keys)
     * scrolling by the size of all pixels fitting current screen size (PgUp/Dn)

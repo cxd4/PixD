@@ -20,6 +20,9 @@
 #include "image.h"
 #include "state.h"
 
+GLuint color_32;
+GLclampf color_GL[4];
+
 int main(int argc, char* argv[])
 {
     FILE* file_in;
@@ -84,8 +87,8 @@ int main(int argc, char* argv[])
     glutInitWindowSize(64, 64);
     glutCreateWindow("PixD");
 
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glDisable(GL_BLEND);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texture_limit);
     channels[CVG] = channels[BLU] = channels[GRN] = channels[RED] = GL_TRUE;
 
@@ -94,10 +97,19 @@ int main(int argc, char* argv[])
     viewport[2] = (argc >= 5) ? atoi(argv[4]) : 256;
     viewport[3] = (argc >= 6) ? atoi(argv[5]) : 256;
 
+    color_32 = (argc >= 7) ? (GLuint)strtoul(argv[6], NULL, 16) : 0x000000FF;
+    color_GL[0] = (GLclampf)((GLubyte)(color_32 >> 24)) / 255.f;
+    color_GL[1] = (GLclampf)((GLubyte)(color_32 >> 16)) / 255.f;
+    color_GL[2] = (GLclampf)((GLubyte)(color_32 >>  8)) / 255.f;
+    color_GL[3] = (GLclampf)((GLubyte)(color_32 >>  0)) / 255.f;
+
     if (bits_per_pixel > 128)
         bits_per_pixel = 128; /* 256-or-more-bit pixels not supported */
-    reshape(viewport[2], viewport[3]);
+    if (color_32 == 0x000000FF)
+        channels[CVG] = GL_FALSE;
 
+    reshape(viewport[2], viewport[3]);
+    glClearColor(color_GL[RED], color_GL[GRN], color_GL[BLU], color_GL[CVG]);
 #if defined(GL_VERSION_1_0) & !defined(GL_VERSION_1_1)
     glDisable(GL_TEXTURE_2D);
 
