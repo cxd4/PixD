@@ -53,6 +53,7 @@ Advantages over LemAsm:
     * scrolling by the size of all pixels fitting current screen size (PgUp/Dn)
     * incrementing and decrementing scan-line pitch, in pixels ('+' and '-')
     * cross-platform, hardware-accelerated OpenGL blits (no acceleration req.)
+    * simple key press to write image to a 32-bit format storing alpha (F3 key)
     * real-time tracing of bitmap/viewport size and memory offset (F5 key)
     * available source code
 
@@ -60,13 +61,6 @@ Disadvantages (not yet supported):
     * RGB un-packing without the opacity channel (Greeks call this alpha?) in
       the scan-line pitch (should add 'p' and 'P' shortcut keys so that 3-, 6-,
       15-, 24-, 48-, and 96-bit-per-pixel color formats can be supported)
-    * The background, canvas color is always black for now, until main() args
-      are extended to support extra nit-pick parameters to support properties
-      like this, starting at a fixed byte offset into the file, etc.
-    * Currently there is no function to dump the current OpenGL viewport of the
-      pixels to a bitmap file on-disk, due to the indecision as to what file
-      format to save the image to.  (While Alt+PrtScrn on the window works, it
-      misses transparency data supported by image formats like PNG, maybe BMP.)
     * no way to zoom in on the pixels without using a smaller system resolution
     * lacks some less conventional pixel formats supported by Jovis' 64DISASM
     * forgot whether anything else was planned (your idea here?)

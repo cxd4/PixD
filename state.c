@@ -59,10 +59,25 @@ void DisplayGLError(char * text, GLenum status)
 
 void key_press(int key, int x, int y)
 {
+    FILE * stream;
     const GLint bits = (GLint)(-flip_sign) * bits_per_pixel;
 
     switch (key)
     {
+    case GLUT_KEY_F3:
+        glReadPixels(
+            0,
+            0,
+            viewport[2],
+            viewport[3],
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            pixels
+        );
+        stream = fopen("r8g8b8a8.data", "wb");
+        fwrite(pixels, 4 * viewport[2], viewport[3], stream);
+        fclose(stream);
+        break;
     case GLUT_KEY_F5:
         glFinish();
         printf(
