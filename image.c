@@ -48,6 +48,14 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT);
 
 /*
+ * OpenGL-ES-compatible default settings
+ * also to fix potentially uninitialized variable warnings from the switch
+ */
+    data = (const GLvoid *)pixels;
+    type = GL_UNSIGNED_BYTE;
+    format = GL_RGBA;
+
+/*
  * Clamp the byte offset from the first pixel of the binary data.
  * This is to prevent memory access violations or segmentation faults.
  *
