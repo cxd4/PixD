@@ -20,16 +20,16 @@
 static GLuint texture_name;
 
 GLfloat texture_raster[4][4] = {
-    0.f, 1.f, 0.f, 1.f, /* DirectX origin */
-    1.f, 1.f, 0.f, 1.f,
-    0.f, 0.f, 0.f, 1.f,
-    1.f, 0.f, 0.f, 1.f, /* terminal scanline and pixel */
+    { 0.f, 1.f, 0.f, 1.f, }, /* DirectX origin */
+    { 1.f, 1.f, 0.f, 1.f, },
+    { 0.f, 0.f, 0.f, 1.f, },
+    { 1.f, 0.f, 0.f, 1.f, }, /* terminal scanline and pixel */
 };
 GLfloat texture_vector[4][4] = {
-    -1.f, -1.f,  0.f, +1.f, /* OpenGL origin */
-    +1.f, -1.f,  0.f, +1.f,
-    -1.f, +1.f,  0.f, +1.f,
-    +1.f, +1.f,  0.f, +1.f, /* terminal trigonometric vertex */
+    { -1.f, -1.f,  0.f, +1.f, }, /* OpenGL origin */
+    { +1.f, -1.f,  0.f, +1.f, },
+    { -1.f, +1.f,  0.f, +1.f, },
+    { +1.f, +1.f,  0.f, +1.f, }, /* terminal trigonometric vertex */
 };
 
 static const GLubyte texture_rectangle[6] = {
