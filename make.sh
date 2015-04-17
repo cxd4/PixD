@@ -1,13 +1,12 @@
 mkdir -p obj
-mkdir -p obj/vu
 
 src="."
 obj="$src/obj"
 
 OBJ_LIST="\
-    $obj/main.o \
+    $obj/image.o \
     $obj/state.o \
-    $obj/image.o"
+    $obj/main.o"
 FLAGS_ANSI="\
     -O3 \
     -Wall \
@@ -17,7 +16,6 @@ FLAGS_x86="\
     -O3 \
     -masm=intel \
     -march=native \
-    -mstackrealign \
     -Wall \
     -ansi \
     -pedantic \
@@ -35,4 +33,4 @@ as -o $obj/state.o      $obj/state.s
 as -o $obj/image.o      $obj/image.s
 
 echo Linking assembled object files...
-gcc -s -o ./PixD $OBJ_LIST -lGL -lglut
+gcc -s -o ./PixD $OBJ_LIST -lfreeglut -lGL
