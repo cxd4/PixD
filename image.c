@@ -98,7 +98,7 @@ void display(void)
             pixels[4*i + GRN] = set_I ? (set_G ? 255 : 0) : (set_G ? 128 : 0);
             pixels[4*i + BLU] = set_I ? (set_B ? 255 : 0) : (set_B ? 128 : 0);
 
-            pixels[4*i + CVG] = ~0x00;
+            pixels[4*i + CVG] = ~0x00u;
 /*
  * 4-bit color has no useful transparency, but the mathematical property that
  * draws the same color for (R = G = B = I = 0) as (R = G = B = 0, I = 1)
