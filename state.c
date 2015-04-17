@@ -62,6 +62,7 @@ void key_press(int key, int x, int y)
     FILE * stream;
     const GLint bits = (GLint)(-flip_sign) * bits_per_pixel;
 
+    x = y = 0; /* unused */
     switch (key)
     {
     case GLUT_KEY_F3:
@@ -112,6 +113,7 @@ void key_press_ascii(unsigned char key, int x, int y)
 {
     GLenum error;
 
+    x = y = 0; /* unused */
     switch (key)
     {
     case '0': /* 1-bit monochrome (black and white) */
