@@ -125,6 +125,8 @@ void key_press_ascii(unsigned char key, int x, int y)
     case '6': /* 64-bit color with 4 16-bit components */
     case '7': /* 128-bit color with 4 32-bit components */
         bits_per_pixel = 1 << (key - '0');
+        if (bits_per_pixel < 32)
+            channels[CVG] = GL_FALSE; /* by default, no alpha rendering */
         break;
     case '-':
         reshape(viewport[2] -= 1, viewport[3]);
