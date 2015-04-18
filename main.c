@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Pixel Map Disassembler                                             *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.12.19                                                         *
+* Release:  2015.04.17                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -31,21 +31,21 @@ int main(int argc, char* argv[])
     file_in = fopen(argc < 2 ? "data.bin" : argv[1], "rb");
     if (file_in == NULL)
     {
-        print_literal("Failed to access data.\n");
+        fputs("Failed to access data.\n", stderr);
         return -1;
     }
 
     failure = fseek(file_in, 0, SEEK_END); /* dependent on POSIX regulations */
     if (failure != 0)
     {
-        print_literal("Failed to set file stream position.\n");
+        fputs("Failed to set file stream position.\n", stderr);
         return -1;
     }
 
     file_size = ftell(file_in);
     if (file_size < 0)
     {
-        print_literal("Failed to get file stream position.\n");
+        fputs("Failed to get file stream position.\n", stderr);
         return -1;
     }
 
@@ -60,14 +60,14 @@ int main(int argc, char* argv[])
     file_data = malloc(file_size);
     if (file_data == NULL)
     {
-        print_literal("Failed to allocate storage for file.\n");
+        fputs("Failed to allocate storage for file.\n", stderr);
         return -1;
     }
 
     failure = fseek(file_in, 0, SEEK_SET);
     if (failure != 0)
     {
-        print_literal("Failed to recursor stream.\n");
+        fputs("Failed to recursor stream.\n", stderr);
         return -1;
     }
 
@@ -75,12 +75,12 @@ int main(int argc, char* argv[])
     failure = (failure != 1); /* fread returns number of elements read:  1. */
     if (failure != 0)
     {
-        print_literal("Failed to import data.\n");
+        fputs("Failed to import data.\n", stderr);
         return -1;
     }
 
     while (fclose(file_in) != 0)
-        print_literal("Problem destroying file stream.\n");
+        fputs("Problem destroying file stream.\n", stderr);
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_ALPHA);

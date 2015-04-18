@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library State Machine                                     *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.11.25                                                         *
+* Release:  2015.04.17                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -17,17 +17,10 @@
 #define _STATE_H_
 
 #ifdef _WIN32
+/*
+ * need to include <windows.h> before including Microsoft's own <GL/gl.h>
+ */
 #include <windows.h>
-
-#define HANDLE_STDOUT       GetStdHandle(STD_OUTPUT_HANDLE)
-
-static DWORD bytes_written;
-
-#define print_literal(str_lit)  \
-    WriteFile(HANDLE_STDOUT, str_lit, sizeof(str_lit) - 1, &bytes_written, NULL)
-#else
-#define print_literal(str_lit)  \
-    fputs(str_lit, stdout)
 #endif
 
 #include <GL/gl.h>

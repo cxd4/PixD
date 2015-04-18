@@ -246,7 +246,7 @@ void reshape(int w, int h)
     glViewport(0, 0, width, height);
     glGetIntegerv(GL_VIEWPORT, viewport);
     if (viewport[2] != width || viewport[3] != height)
-        print_literal("Context viewport state mismatch!\n");
+        fputs("Context viewport state mismatch!\n", stderr);
 
 #if !defined(GL_VERSION_1_0) | defined(GL_VERSION_1_1)
     glDeleteTextures(1, &texture_name);
