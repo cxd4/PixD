@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 #if defined(GL_VERSION_1_0) & !defined(GL_VERSION_1_1)
     glDisable(GL_TEXTURE_2D);
 
-    glRasterPos2f(-1.f, -flip_sign);
+    glRasterPos2i(-1, -flip_sign);
     glPixelZoom(+1.f, flip_sign);
 #else
     glEnable(GL_TEXTURE_2D);

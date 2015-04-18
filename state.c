@@ -33,7 +33,7 @@ GLboolean channels[4];
 GLint viewport[4];
 GLubyte* pixels;
 
-GLfloat flip_sign = -1.f;
+GLint flip_sign = -1;
 GLboolean BGR_ordering = GL_FALSE;
 GLubyte bits_per_pixel = 8;
 
@@ -60,7 +60,7 @@ void DisplayGLError(char * text, GLenum status)
 void key_press(int key, int x, int y)
 {
     FILE * stream;
-    const GLint bits = (GLint)(-flip_sign) * bits_per_pixel;
+    const GLint bits = -flip_sign * bits_per_pixel;
 
     x = y = 0; /* unused */
     switch (key)
@@ -125,6 +125,7 @@ void key_press_ascii(unsigned char key, int x, int y)
     case '6': /* 64-bit color with 4 16-bit components */
     case '7': /* 128-bit color with 4 32-bit components */
         bits_per_pixel = 1 << (key - '0');
+
         if (bits_per_pixel < 32)
             channels[CVG] = GL_FALSE; /* by default, no alpha rendering */
         break;
@@ -155,7 +156,7 @@ void key_press_ascii(unsigned char key, int x, int y)
         BGR_ordering = GL_FALSE;
         break;
     case 'F':
-        flip_sign = -1.f;
+        flip_sign = -1;
         texture_vector[1][1] = texture_vector[0][1] = -1.f;
         texture_vector[3][1] = texture_vector[2][1] = +1.f;
         break;
@@ -180,7 +181,7 @@ void key_press_ascii(unsigned char key, int x, int y)
         BGR_ordering = GL_TRUE;
         break;
     case 'f':
-        flip_sign = +1.f;
+        flip_sign = +1;
         texture_vector[1][1] = texture_vector[0][1] = +1.f;
         texture_vector[3][1] = texture_vector[2][1] = -1.f;
         break;

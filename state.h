@@ -39,7 +39,7 @@ extern GLboolean channels[4];
 extern GLint viewport[4];
 extern GLubyte * pixels;
 
-extern GLfloat flip_sign;
+extern GLint flip_sign;
 extern GLboolean BGR_ordering;
 extern GLubyte bits_per_pixel;
 
