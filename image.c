@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface for Pixel Transfers                     *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.12.19                                                         *
+* Release:  2015.04.17                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -92,13 +92,17 @@ void display(void)
             const int set_R = nybble & (BGR_ordering ? 0x1 : 0x4);
             const int set_G = nybble & (BGR_ordering ? 0x2 : 0x2);
             const int set_B = nybble & (BGR_ordering ? 0x4 : 0x1);
-            const int set_I = nybble & 0x8; /* intensity or lightness */
+            const int set_I = (nybble >> 3); /* intensity or lightness */
 
-            pixels[4*i + RED] = set_I ? (set_R ? 255 : 0) : (set_R ? 128 : 0);
-            pixels[4*i + GRN] = set_I ? (set_G ? 255 : 0) : (set_G ? 128 : 0);
-            pixels[4*i + BLU] = set_I ? (set_B ? 255 : 0) : (set_B ? 128 : 0);
+            pixels[4*i + RED]  = (set_R != 0) ? 0xFFu : 0x00u;
+            pixels[4*i + GRN]  = (set_G != 0) ? 0xFFu : 0x00u;
+            pixels[4*i + BLU]  = (set_B != 0) ? 0xFFu : 0x00u;
 
-            pixels[4*i + CVG] = ~0x00u;
+            pixels[4*i + RED] &= (set_I & 1) ? 0xFFu : 0x80u;
+            pixels[4*i + GRN] &= (set_I & 1) ? 0xFFu : 0x80u;
+            pixels[4*i + BLU] &= (set_I & 1) ? 0xFFu : 0x80u;
+
+            pixels[4*i + CVG]  = (GLubyte)0xFFu;
 /*
  * 4-bit color has no useful transparency, but the mathematical property that
  * draws the same color for (R = G = B = I = 0) as (R = G = B = 0, I = 1)
