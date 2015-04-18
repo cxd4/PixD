@@ -71,9 +71,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    failure = (int)fread(file_data, file_size, 1, file_in);
-    failure = (failure != 1); /* fread returns number of elements read:  1. */
-    if (failure != 0)
+    if (fread(file_data, file_size, 1, file_in) != 1)
     {
         fputs("Failed to import data.\n", stderr);
         return -1;
