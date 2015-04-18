@@ -35,8 +35,6 @@ enum {
     LUM /* brightness--luminesence in OpenGL, lightness in the HSL model */
 };
 
-extern const char* GL_errors[8];
-
 extern GLboolean channels[4];
 extern GLint viewport[4];
 extern GLubyte * pixels;

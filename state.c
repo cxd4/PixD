@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface Run-Time Configuration                  *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.12.19                                                         *
+* Release:  2015.04.17                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -17,7 +17,7 @@
 #include "state.h"
 #include "image.h"
 
-const char* GL_errors[8] = {
+static const char* GL_errors[8] = {
     "GL_NO_ERROR",
     "GL_INVALID_ENUM",
     "GL_INVALID_VALUE",
