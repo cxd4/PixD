@@ -19,11 +19,11 @@
 
 static GLuint texture_name;
 
-GLfloat texture_raster[4][4] = {
-    { 0, 1, 0, 1, }, /* DirectX origin */
-    { 1, 1, 0, 1, },
-    { 0, 0, 0, 1, },
-    { 1, 0, 0, 1, }, /* terminal scanline and pixel */
+GLfloat texture_raster[4][2] = {
+    { 0, 1, }, /* DirectX origin */
+    { 1, 1, },
+    { 0, 0, },
+    { 1, 0, }, /* terminal scanline and pixel */
 };
 GLbyte texture_vector[4][2] = {
     { -1, -1, }, /* OpenGL origin */
@@ -263,21 +263,11 @@ void reshape(int w, int h)
         NULL
     );
 
-#ifdef _DEBUG
     texture_raster[3][0] = texture_raster[1][0]
       = (GLfloat)width / (GLfloat)texture_size;
     texture_raster[1][1] = texture_raster[0][1]
       = (GLfloat)height / (GLfloat)texture_size;
-#else
-    texture_raster[3][3]
-  = texture_raster[2][3]
-  = texture_raster[1][3]
-  = texture_raster[0][3]
-  = (GLfloat)texture_size;
 
-    texture_raster[3][0] = texture_raster[1][0] = (GLfloat)width;
-    texture_raster[1][1] = texture_raster[0][1] = (GLfloat)height;
-#endif
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
