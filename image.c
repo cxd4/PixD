@@ -62,6 +62,9 @@ void display(void)
     if (byte_offset < 0)
         byte_offset = 0;
 
+    format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
+    type = GL_UNSIGNED_BYTE;
+    data = (const GLvoid *)(file_data + byte_offset);
     switch (bits_per_pixel)
     {
         register unsigned int i;
@@ -69,14 +72,12 @@ void display(void)
         for (i = 0; i < limit; i++)
             pixels[i] = (file_data[byte_offset + i/8] >> ~i%8 & 1) ? ~0 : 0;
         format = GL_LUMINANCE;
-        type = GL_UNSIGNED_BYTE;
         data = (const GLvoid *)pixels;
         break;
     case 2:
         for (i = 0; i < limit; i++)
             pixels[i] = 85 * (file_data[byte_offset + i/4] >> ~i%4*2 & 3);
         format = GL_LUMINANCE;
-        type = GL_UNSIGNED_BYTE;
         data = (const GLvoid *)pixels;
         break;
     case 4:
@@ -110,8 +111,6 @@ void display(void)
             pixels[4*i + BLU] = pixels[4*i + GRN] = pixels[4*i + RED] = 192;
 #endif
         }
-        format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
-        type = GL_UNSIGNED_BYTE;
         data = (const GLvoid *)pixels;
         break;
     case 8:
@@ -127,8 +126,6 @@ void display(void)
  * the more naturally applicable I8 method.
  */
         format = GL_LUMINANCE;
-        type = GL_UNSIGNED_BYTE;
-        data = (const GLvoid *)(file_data + byte_offset);
         break;
     case 16:
 /*
@@ -138,26 +135,17 @@ void display(void)
  * but the one that SGI used in their media co-processor for the Nintendo 64
  * was R5G5B5[X1], with a final bit serving as part of 3-bit coverage.
  */
-        format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
         type = BGR_ordering
             ? GL_UNSIGNED_SHORT_1_5_5_5_REV : GL_UNSIGNED_SHORT_5_5_5_1;
-        data = (const GLvoid *)(file_data + byte_offset);
         glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_TRUE);
         break;
     case 32:
-        format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
-        type = GL_UNSIGNED_BYTE;
-        data = (const GLvoid *)(file_data + byte_offset);
         break;
     case 64:
-        format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
         type = GL_UNSIGNED_SHORT; /* unsupported on OpenGL ES */
-        data = (const GLvoid *)(file_data + byte_offset);
         break;
     case 128:
-        format = (BGR_ordering != GL_FALSE) ? GL_BGRA : GL_RGBA;
         type = GL_UNSIGNED_INT; /* unsupported on OpenGL ES */
-        data = (const GLvoid *)(file_data + byte_offset);
         break;
     }
 
