@@ -154,8 +154,6 @@ void key_press_ascii(unsigned char key, int x, int y)
         break;
     case 'F':
         flip_sign = -1;
-        texture_vector[1][1] = texture_vector[0][1] = -1;
-        texture_vector[3][1] = texture_vector[2][1] = +1;
         break;
     case 'a':
         glEnable(GL_BLEND);
@@ -175,10 +173,10 @@ void key_press_ascii(unsigned char key, int x, int y)
         break;
     case 'f':
         flip_sign = +1;
-        texture_vector[1][1] = texture_vector[0][1] = +1;
-        texture_vector[3][1] = texture_vector[2][1] = -1;
         break;
     }
+    texture_vector[1][1] = texture_vector[0][1] = +flip_sign;
+    texture_vector[3][1] = texture_vector[2][1] = -flip_sign;
 
     glClear(GL_COLOR_BUFFER_BIT);
     glColorMask(channels[RED], channels[GRN], channels[BLU], channels[CVG]);
