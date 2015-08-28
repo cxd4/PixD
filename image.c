@@ -20,16 +20,16 @@
 static GLuint texture_name;
 
 GLfloat texture_raster[4][4] = {
-    { 0.f, 1.f, 0.f, 1.f, }, /* DirectX origin */
-    { 1.f, 1.f, 0.f, 1.f, },
-    { 0.f, 0.f, 0.f, 1.f, },
-    { 1.f, 0.f, 0.f, 1.f, }, /* terminal scanline and pixel */
+    { 0, 1, 0, 1, }, /* DirectX origin */
+    { 1, 1, 0, 1, },
+    { 0, 0, 0, 1, },
+    { 1, 0, 0, 1, }, /* terminal scanline and pixel */
 };
-GLfloat texture_vector[4][4] = {
-    { -1.f, -1.f,  0.f, +1.f, }, /* OpenGL origin */
-    { +1.f, -1.f,  0.f, +1.f, },
-    { -1.f, +1.f,  0.f, +1.f, },
-    { +1.f, +1.f,  0.f, +1.f, }, /* terminal trigonometric vertex */
+GLbyte texture_vector[4][2] = {
+    { -1, -1, }, /* OpenGL origin */
+    { +1, -1, },
+    { -1, +1, },
+    { +1, +1, }, /* terminal trigonometric vertex */
 };
 
 void display(void)

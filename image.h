@@ -22,7 +22,7 @@
 #include <GL/gl.h>
 
 extern GLfloat texture_raster[4][4];
-extern GLfloat texture_vector[4][4];
+extern GLbyte texture_vector[4][2];
 
 extern void display(void);
 extern void reshape(int w, int h);

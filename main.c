@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glVertexPointer(4, GL_FLOAT, 0, texture_vector);
+    glVertexPointer(2, GL_BYTE, 0, texture_vector);
     glTexCoordPointer(4, GL_FLOAT, 0, texture_raster);
 #endif
 

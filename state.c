@@ -157,8 +157,8 @@ void key_press_ascii(unsigned char key, int x, int y)
         break;
     case 'F':
         flip_sign = -1;
-        texture_vector[1][1] = texture_vector[0][1] = -1.f;
-        texture_vector[3][1] = texture_vector[2][1] = +1.f;
+        texture_vector[1][1] = texture_vector[0][1] = -1;
+        texture_vector[3][1] = texture_vector[2][1] = +1;
         break;
     case 'a':
         glEnable(GL_BLEND);
@@ -182,8 +182,8 @@ void key_press_ascii(unsigned char key, int x, int y)
         break;
     case 'f':
         flip_sign = +1;
-        texture_vector[1][1] = texture_vector[0][1] = +1.f;
-        texture_vector[3][1] = texture_vector[2][1] = -1.f;
+        texture_vector[1][1] = texture_vector[0][1] = +1;
+        texture_vector[3][1] = texture_vector[2][1] = -1;
         break;
     }
 
