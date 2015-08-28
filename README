@@ -18,7 +18,7 @@ Simply executing `PixD' with no parameters is NOT erroneous.  Default values:
                      It must be a hexadecimal, with or without the `0x' prefix.
     [depth] -- You take 2 to the power of this number, from 0 to 7.  The default
                is 3, so the default color depth is 2*2*2 = 8 bits per pixel.
-    [width], [height] -- both initialize to 64x64 pixels for OpenGL 1.0 texture
+    [width], [height] -- Both initialize to 64x64 pixels for OpenGL 1.0 texture
                          limit reasons, but the end result should be 256x256.
     [blend] -- Blend any partially (or completely) transparent pixels in the
                foreground against this background color (another hexadecimal).
