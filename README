@@ -1,5 +1,9 @@
 Binary "disassembler" interpreting as raster scan-lines and pixel maps.
 
+Note:  GLUT is a run-time dependency of this software.  The 64-bit Windows build
+will work with the GLUT32.DLL from here:  https://github.com/cxd4/glut/releases
+(Non-Windows builds just need the "freeGLUT" package installed.)
+
 It was created primarily because of a lack of featured alternatives for viewing
 bitmap resources in memory, using Nintendo 64 DRAM dumps for most tests.
 
@@ -92,31 +96,3 @@ does claim to support the 64-bit RGBA encoding for Windows bitmaps.  Thanks to
 OpenGL 1.2 extensions, you can press 'e' and 'E' to toggle RGB/BGR endianness.
 Currently the software lacks a 'p' flag to switch packing/pitch to exclude alpha
 so that other bit depths like 3, 24, 48, or 96 bits per pixel can be supported.
-
-There are no special system requirements of note (could work on the oldest
-operating systems, even something without a native OpenGL implementation thanks
-to the Mesa3D project), and the source code should build the program fine for
-most systems in general, with a few fundamental exceptions:
-    * The OpenGL Utility Toolkit (GLUT) library is a current dependency.  It is
-      traditionally Mark Kilgard's copyrighted library for handling framework
-      stuff in portable high-level functions across different operating systems
-      (back when Kilgard was still working for Silicon Graphics and the OpenGL
-      invention).  Fortunately there is also a "freeGLUT" which is backwards-
-      compatible with the features of the "non-free" GLUT library and could
-      also be used to compile and link this software.  The venerable GLUT is on
-      rare occassion still being updated and maintained in the NVIDIA SDKs.
-    * The cross-platform `fseek(&file, SEEK_END, 0)' method of getting a file's
-      size is regulated only to meaningful computations by POSIX standards.
-      It's still better than constant file streaming and hard-disk access,
-      as RAM-caching helps maintain the instantaneous responses from the
-      program while stepping through the pixels.  Maybe in the future I can
-      rewrite it as a loop of fgetc's until an EOF is found, with the more
-      instant get-file-size-and-fread method moved over to a main() args flag.
-    * As of 2008, there are a couple "deprecated" commands used which were
-      removed from the OpenGL 3.1+ specifications and, possibly for some
-      Macintosh/Intel GPU user, the OpenGL drivers for some video hardware.
-      What used to be OpenGL has become taken over by the Khronos Group, which
-      created their own OpenGL [ES] specs and imposed their "low-level API",
-      performance-only views against the original OpenGL specs as well.  Since
-      there is no benefit to forcing the application of shaders to portable GL
-      programs, a handful of "deprecated" commands are seldom used by this tool.
