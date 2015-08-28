@@ -90,7 +90,7 @@ Supported modes of pixel bitmap interpretation:
     * 4-bit I1R1G1B1 and IBGR, compatible with Windows VGA (Press '2'.)
     * 8-bit intensity mask, not compatible with Microsoft's arbitrary B2G3R3
       (Press '3', and try 'RGBA' keys for toggling color channels on and off.)
-    * 16-bit R5G5B5A1 or B5G5R5A1 (Press '4'.)
+    * 16-bit R5G5B5A1 or B5G5R5A1 (Press '4'.) or I8A8 (Press 'a'.)
     * 32-bit RGBA or BGRA pixels (Most people might want this.  Press '5'.)
     * 64-bit RGBA or BGRA pixels (Press '6'.)
     * 128-bit RGBA or BGRA pixels (Press '7'.)

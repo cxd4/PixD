@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface for Pixel Transfers                     *
 * Authors:  Iconoclast                                                         *
-* Release:  2015.04.17                                                         *
+* Release:  2015.08.28                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -41,6 +41,7 @@ void display(void)
     const GLuint limit = width * height;
 
     glClear(GL_COLOR_BUFFER_BIT);
+    glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_FALSE);
 
 /*
  * OpenGL-ES-compatible default settings
@@ -138,6 +139,11 @@ void display(void)
         type = BGR_ordering
             ? GL_UNSIGNED_SHORT_1_5_5_5_REV : GL_UNSIGNED_SHORT_5_5_5_1;
         glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_TRUE);
+        if (channels[CVG] != GL_FALSE)
+        {
+            format = GL_LUMINANCE_ALPHA;
+            type = GL_UNSIGNED_BYTE;
+        }
         break;
     case 32:
         break;
