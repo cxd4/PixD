@@ -35,10 +35,16 @@ Example command:
 ... opens a file named DRAM.BIN into the pixel diassembler, seeking 0x00100000
 bytes deep into the file as a pixel map, initialized to a 16-bit 320x240
 viewport which should be compatible with the N64's R5G5B5 frame buffer format.
-If N64 support is not desired (e.g., the intention is B5G5R5 or A1R5G5B5),
-a combination of endianness and packing keyboard shortcuts can be used later.
 Finally, the background color is semi-transparent magenta (0xFF00FF80), but how
 the transparency is handled will depend on your OS, windowing system, etc.
+
+You can also just press the keys 0 through 7 to change the color depth while
+the program is already running, without typing it on the command line.
+Scroll down to "Supported modes of pixel bitmap interpretation" for more info.
+
+If N64's 16-bit is not desired (e.g., the intention is B5G5R5 or A1R5G5B5),
+pressing 'e' (endianness) or 'p' (packing) at run-time will enable some features
+that can achieve most other variations of 16-bit color.
 
 Advantages over Jovis' N64 disassembler utility:
     * takes no time at all to upload pixels, rather than minutes
