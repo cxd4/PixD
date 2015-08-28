@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface Run-Time Configuration                  *
 * Authors:  Iconoclast                                                         *
-* Release:  2015.04.17                                                         *
+* Release:  2015.08.27                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -114,6 +114,7 @@ void key_press_ascii(unsigned char key, int x, int y)
     GLenum error;
 
     x = y = 0; /* unused */
+    glGetBooleanv(GL_COLOR_WRITEMASK, &channels[0]);
     switch (key)
     {
     case '0': /* 1-bit monochrome (black and white) */
@@ -137,19 +138,15 @@ void key_press_ascii(unsigned char key, int x, int y)
         break;
     case 'A':
         glDisable(GL_BLEND);
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[CVG] = GL_FALSE;
         break;
     case 'B':
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[BLU] = GL_FALSE;
         break;
     case 'G':
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[GRN] = GL_FALSE;
         break;
     case 'R':
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[RED] = GL_FALSE;
         break;
     case 'E':
@@ -162,19 +159,15 @@ void key_press_ascii(unsigned char key, int x, int y)
         break;
     case 'a':
         glEnable(GL_BLEND);
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[CVG] = GL_TRUE;
         break;
     case 'b':
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[BLU] = GL_TRUE;
         break;
     case 'g':
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[GRN] = GL_TRUE;
         break;
     case 'r':
-        glGetBooleanv(GL_COLOR_WRITEMASK, channels);
         channels[RED] = GL_TRUE;
         break;
     case 'e':
