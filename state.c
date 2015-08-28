@@ -185,7 +185,7 @@ void key_press_ascii(unsigned char key, int x, int y)
 
     error = glGetError();
     if (error != GL_NO_ERROR)
-        printf("OpenGL error.\n");
+        DisplayGLError("GL state re-configuration error.", error);
     glutPostRedisplay();
     return;
 }
