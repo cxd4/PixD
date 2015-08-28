@@ -32,11 +32,6 @@ GLfloat texture_vector[4][4] = {
     { +1.f, +1.f,  0.f, +1.f, }, /* terminal trigonometric vertex */
 };
 
-static const GLubyte texture_rectangle[6] = {
-    0, 1, 2,
-    2, 1, 3,
-};
-
 void display(void)
 {
     const GLvoid * data;
@@ -172,7 +167,7 @@ void display(void)
     glDrawPixels(width, height, format, type, data);
 #else
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, type, data);
-    glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, texture_rectangle);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 3 + 1);
 #endif
     glFlush();
     glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_FALSE);
