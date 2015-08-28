@@ -82,11 +82,11 @@ void display(void)
     case 4:
         for (i = 0; i < limit; i++)
         {
-            const unsigned shift = 4*(~i & 1) & 0xF;
+            const unsigned shift = 4 * (~i & 1);
             const unsigned nybble = file_data[byte_offset + i / 2] >> shift;
-            const int set_R = nybble & (BGR_ordering ? 0x1 : 0x4);
-            const int set_G = nybble & (BGR_ordering ? 0x2 : 0x2);
-            const int set_B = nybble & (BGR_ordering ? 0x4 : 0x1);
+            const int set_R = nybble & 0x4;
+            const int set_G = nybble & 0x2;
+            const int set_B = nybble & 0x1;
             const int set_I = (nybble >> 3); /* intensity or lightness */
 
             pixels[4*i + RED]  = (set_R != 0) ? 0xFFu : 0x00u;
