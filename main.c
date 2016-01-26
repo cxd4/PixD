@@ -29,22 +29,19 @@ int main(int argc, char* argv[])
     int failure;
 
     file_in = fopen(argc < 2 ? "data.bin" : argv[1], "rb");
-    if (file_in == NULL)
-    {
+    if (file_in == NULL) {
         fputs("Failed to access data.\n", stderr);
         return -1;
     }
 
     failure = fseek(file_in, 0, SEEK_END); /* dependent on POSIX regulations */
-    if (failure != 0)
-    {
+    if (failure != 0) {
         fputs("Failed to set file stream position.\n", stderr);
         return -1;
     }
 
     file_size = ftell(file_in);
-    if (file_size < 0)
-    {
+    if (file_size < 0) {
         fputs("Failed to get file stream position.\n", stderr);
         return -1;
     }
@@ -55,24 +52,22 @@ int main(int argc, char* argv[])
  * The program always starts in 8-bit-per-pixel video display mode.
  * (64 * 64 pixels) / (1 byte per pixel) = 4096 bytes minimum file size.
  */
-    file_size = (file_size < 64*64/1) ? 4096 : file_size;
+    if (file_size < 64*64/1)
+        file_size = 64*64/1;
 
     file_data = malloc(file_size);
-    if (file_data == NULL)
-    {
+    if (file_data == NULL) {
         fputs("Failed to allocate storage for file.\n", stderr);
         return -1;
     }
 
     failure = fseek(file_in, 0, SEEK_SET);
-    if (failure != 0)
-    {
+    if (failure != 0) {
         fputs("Failed to recursor stream.\n", stderr);
         return -1;
     }
 
-    if (fread(file_data, file_size, 1, file_in) != 1)
-    {
+    if (fread(file_data, file_size, 1, file_in) != 1) {
         fputs("Failed to import data.\n", stderr);
         return -1;
     }

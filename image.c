@@ -139,8 +139,7 @@ void display(void)
         type = BGR_ordering
             ? GL_UNSIGNED_SHORT_1_5_5_5_REV : GL_UNSIGNED_SHORT_5_5_5_1;
         glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_TRUE);
-        if (channels[CVG] != GL_FALSE)
-        {
+        if (channels[CVG] != GL_FALSE) {
             format = GL_LUMINANCE_ALPHA;
             type = GL_UNSIGNED_BYTE;
         }
@@ -201,8 +200,7 @@ void reshape(int w, int h)
  * for as long as the dimensions together were still too great, but there
  * were some other viable strategies that I didn't want to decide between.
  */
-    if (width * height * bits_per_pixel > 8 * file_size)
-    {
+    if (width * height * bits_per_pixel > 8 * file_size) {
         width = viewport[2]; /* restoring old width */
         height = viewport[3]; /* restoring old height */
     }
@@ -219,14 +217,12 @@ void reshape(int w, int h)
  * Bump the texture size to the next power of two, unless equal to one.
  * A width of 4095 would become 4096; a width of 4096 stays at 4096.
  */
-        for (search_mask = 1; search_mask <= 0x40000000l; search_mask *= 2)
-        {
+        for (search_mask = 1; search_mask <= 0x40000000l; search_mask *= 2) {
             if (search_mask < texture_size)
                 continue;
             else if (search_mask == texture_size) /* already a power of 2 */
                 break;
-            else
-            {
+            else {
                 texture_size = search_mask;
                 break;
             }
@@ -249,8 +245,7 @@ void reshape(int w, int h)
         GL_TEXTURE_2D,
         0,
         GL_RGBA8,
-        texture_size,
-        texture_size,
+        texture_size, texture_size,
         0,
         GL_RGBA,
         GL_UNSIGNED_BYTE,

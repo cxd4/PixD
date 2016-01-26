@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface Run-Time Configuration                  *
 * Authors:  Iconoclast                                                         *
-* Release:  2015.08.27                                                         *
+* Release:  2016.01.26                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -17,7 +17,7 @@
 #include "state.h"
 #include "image.h"
 
-static const char* GL_errors[8] = {
+static const char* GL_errors[] = {
     "GL_NO_ERROR",
     "GL_INVALID_ENUM",
     "GL_INVALID_VALUE",
@@ -63,14 +63,11 @@ void key_press(int key, int x, int y)
     const GLint bits = -flip_sign * bits_per_pixel;
 
     x = y = 0; /* unused */
-    switch (key)
-    {
+    switch (key) {
     case GLUT_KEY_F3:
         glReadPixels(
-            0,
-            0,
-            viewport[2],
-            viewport[3],
+            0, 0,
+            viewport[2], viewport[3],
             GL_RGBA,
             GL_UNSIGNED_BYTE,
             pixels
@@ -115,8 +112,7 @@ void key_press_ascii(unsigned char key, int x, int y)
 
     x = y = 0; /* unused */
     glGetBooleanv(GL_COLOR_WRITEMASK, &channels[0]);
-    switch (key)
-    {
+    switch (key) {
     case '0': /* 1-bit monochrome (black and white) */
     case '1': /* 2-bit CGA chrome (black, white, gray and "silver") */
     case '2': /* 4-bit R1G1B1 */
