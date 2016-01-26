@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Pixel Map Disassembler                                             *
 * Authors:  Iconoclast                                                         *
-* Release:  2015.04.17                                                         *
+* Release:  2016.01.26                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glVertexPointer(2, GL_BYTE, 0, texture_vector);
+    glVertexPointer(2, GL_SHORT, 0, texture_vector);
     glTexCoordPointer(2, GL_FLOAT, 0, texture_raster);
 #endif
 

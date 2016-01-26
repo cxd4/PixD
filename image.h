@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface                                         *
 * Authors:  Iconoclast                                                         *
-* Release:  2014.11.25                                                         *
+* Release:  2016.01.26                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -22,7 +22,7 @@
 #include <GL/gl.h>
 
 extern GLfloat texture_raster[4][2];
-extern GLbyte texture_vector[4][2];
+extern GLshort texture_vector[4][2];
 
 extern void display(void);
 extern void reshape(int w, int h);

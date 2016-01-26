@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface for Pixel Transfers                     *
 * Authors:  Iconoclast                                                         *
-* Release:  2015.08.28                                                         *
+* Release:  2016.01.27                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -25,7 +25,7 @@ GLfloat texture_raster[4][2] = {
     { 0, 0, },
     { 1, 0, }, /* terminal scanline and pixel */
 };
-GLbyte texture_vector[4][2] = {
+GLshort texture_vector[4][2] = {
     { -1, -1, }, /* OpenGL origin */
     { +1, -1, },
     { -1, +1, },
