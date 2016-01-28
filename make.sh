@@ -33,4 +33,5 @@ as -o $obj/state.o      $obj/state.s
 as -o $obj/image.o      $obj/image.s
 
 echo Linking assembled object files...
+#gcc -s -o ./PixD $OBJ_LIST -lglut -lGL
 gcc -s -o ./PixD $OBJ_LIST -lfreeglut -lGL
