@@ -1,0 +1,33 @@
+# general binary input file examples
+*.bin
+
+# raw pixels in bitmap storage (GIMP, others?)
+*.data
+
+# raw pixels in bitmap storage (Paint Shop Pro, others?)
+*.raw
+
+# compiler-generated sources
+*.asm
+*.s
+
+# assembled linker objects
+*.obj
+*.o
+
+# garbage likely to result from opening or building with Visual Studio
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.opendb
+
+PixD
+Thumbs.db
+
+/Bin
+/build
+/ipch
+/obj
