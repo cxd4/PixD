@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Pixel Map Disassembler                                             *
 * Authors:  Iconoclast                                                         *
-* Release:  2016.01.26                                                         *
+* Release:  2016.02.06                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -46,14 +46,19 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    byte_offset = (argc >= 3) ? (GLint)strtol(argv[2], NULL, 16) : 0;
+    bits_per_pixel = (argc >= 4) ? 1 << (argv[3][0] - '0') : 8;
+    viewport[2] = (argc >= 5) ? atoi(argv[4]) : 256;
+    viewport[3] = (argc >= 6) ? atoi(argv[5]) : 256;
+
 /*
  * For avoiding a memory access segfault when setting up an OpenGL viewport
- * initially reading in 64 * 64 pixels from the file data.
- * The program always starts in 8-bit-per-pixel video display mode.
- * (64 * 64 pixels) / (1 byte per pixel) = 4096 bytes minimum file size.
+ * initially reading in w * h pixels from the file data.
+ * The program by default starts in 8-bit-per-pixel video display mode.
+ * (256 * 256 pixels) / (1 byte per pixel) = 65,536 bytes minimum file size.
  */
-    if (file_size < 64*64/1)
-        file_size = 64*64/1;
+    if (file_size < viewport[2] * viewport[3] / 1)
+        file_size = viewport[2] * viewport[3] / 1;
 
     file_data = malloc(file_size);
     if (file_data == NULL) {
@@ -77,18 +82,13 @@ int main(int argc, char* argv[])
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_ALPHA);
-    glutInitWindowSize(64, 64);
+    glutInitWindowSize(viewport[2], viewport[3]);
     glutCreateWindow("PixD");
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texture_limit);
     channels[CVG] = channels[BLU] = channels[GRN] = channels[RED] = GL_TRUE;
-
-    byte_offset = (argc >= 3) ? (GLint)strtol(argv[2], NULL, 16) : 0;
-    bits_per_pixel = (argc >= 4) ? 1 << (argv[3][0] - '0') : 8;
-    viewport[2] = (argc >= 5) ? atoi(argv[4]) : 256;
-    viewport[3] = (argc >= 6) ? atoi(argv[5]) : 256;
 
     color_32 = (argc >= 7) ? (GLuint)strtoul(argv[6], NULL, 16) : 0x000000FF;
     color_GL[0] = (GLclampf)((GLubyte)(color_32 >> 24)) / 255.f;
