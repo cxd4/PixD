@@ -23,7 +23,7 @@ C_FLAGS=$FLAGS_x86 # default since Intel SIMD was the most tested
 echo Compiling C source code...
 cc -S -Os $C_FLAGS -o $obj/main.s       $src/main.c
 cc -S -Os $C_FLAGS -o $obj/state.s      $src/state.c
-cc -S -Os $C_FLAGS -o $obj/image.s      $src/image.c
+cc -S -O3 $C_FLAGS -o $obj/image.s      $src/image.c
 
 echo Assembling compiled sources...
 as -o $obj/main.o       $obj/main.s
