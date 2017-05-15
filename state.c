@@ -129,6 +129,7 @@ void key_press_ascii(unsigned char key, int x, int y)
     case '-':
         reshape(viewport[2] -= 1, viewport[3]);
         break;
+    case '=':
     case '+':
         reshape(viewport[2] += 1, viewport[3]);
         break;
