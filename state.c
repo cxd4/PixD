@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface Run-Time Configuration                  *
 * Authors:  Iconoclast                                                         *
-* Release:  2016.01.26                                                         *
+* Release:  2017.05.15                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -132,6 +132,18 @@ void key_press_ascii(unsigned char key, int x, int y)
     case '=':
     case '+':
         reshape(viewport[2] += 1, viewport[3]);
+        break;
+    case '[':
+        reshape(viewport[2] /= 2, viewport[3]);
+        break;
+    case ']':
+        reshape(viewport[2] *= 2, viewport[3]);
+        break;
+    case '{':
+        reshape(viewport[2], viewport[3] /= 2);
+        break;
+    case '}':
+        reshape(viewport[2], viewport[3] *= 2);
         break;
     case 'A':
         glDisable(GL_BLEND);
