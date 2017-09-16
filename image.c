@@ -162,7 +162,7 @@ void display(void)
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, type, data);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3 + 1);
 #endif
-    glFlush();
+    glutSwapBuffers();
     glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_FALSE);
 
     status = glGetError();
