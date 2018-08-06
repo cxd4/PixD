@@ -1,7 +1,7 @@
 /******************************************************************************\
 * Project:  Graphics Library Interface for Pixel Transfers                     *
 * Authors:  Iconoclast                                                         *
-* Release:  2016.01.27                                                         *
+* Release:  2018.08.04                                                         *
 * License:  CC0 Public Domain Dedication                                       *
 *                                                                              *
 * To the extent possible under law, the author(s) have dedicated all copyright *
@@ -194,15 +194,13 @@ void reshape(int w, int h)
 
 /*
  * If the frame buffer size, in bits, is greater than the file size, in bits,
- * then clamp it down or whatever.  My current preference is change nothing.
- * Some other ideas I had in prototypes of this software were to clamp the
- * width to the previous power of 2, then keep decrementing the height by 1
- * for as long as the dimensions together were still too great, but there
- * were some other viable strategies that I didn't want to decide between.
+ * then try to clamp the frame buffer size down while preserving the pitch for
+ * each scanline.  If this starts to look complicated, abort the whole thing.
  */
-    if (width * height * bits_per_pixel > 8 * file_size) {
-        width = viewport[2]; /* restoring old width */
-        height = viewport[3]; /* restoring old height */
+    while (width*height*bits_per_pixel > 8*file_size - 8*byte_offset) {
+        --height;
+        if (height < (1 << 0)) /* 1-pixel tall images??  Maybe...maybe not. */
+            return; /* Abort the whole request.  User needs to figure it out. */
     }
     glutReshapeWindow(width, height); /* confirmed new width and height */
 
